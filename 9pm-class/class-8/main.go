@@ -11,10 +11,13 @@ func main() {
 	l.insert(12)
 	l.insert(15)
 	l.insert(25)
+	l.insert(35)
+	l.insert(45)
+
 	l.display() //>>>
 
-	// l.remove(15)
-	// l.display()
+	l.remove(45)
+	l.display()
 
 }
 
@@ -42,12 +45,30 @@ func (l *LinkList) insert(v int) {
 
 }
 
-func (l *LinkList) remove(value int) {
+func (l *LinkList) remove(v int) {
 
 	if l.head == nil {
 		fmt.Println("Empty linked list nothing to remvoe")
+		return
+	}
+
+	if l.head.value == v {
+		fmt.Println("deleting head value =", l.head.value)
+		l.head = l.head.next
+		return
+	}
+
+	current := l.head
+
+	for current.next != nil && current.next.value != v {
+		current = current.next
+	}
+
+	if current.next.value == v {
+		fmt.Println("deleting value =", current.next.value)
+		current.next = current.next.next
 	} else {
-		//TODO:
+		fmt.Println("Value not found")
 	}
 
 }
@@ -61,11 +82,11 @@ func (l *LinkList) display() {
 
 		for current != nil {
 			builder.WriteString(fmt.Sprintf("%d", current.value))
-			builder.WriteString(", ")
+			builder.WriteString("-> ")
 			current = current.next
 		}
-
-		fmt.Println(builder.String()[:len(builder.String())-2])
+		dispaly := builder.String()[:len(builder.String())-3]
+		fmt.Println(dispaly + "->Nil")
 	}
 
 }
