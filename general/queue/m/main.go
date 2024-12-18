@@ -20,4 +20,5 @@ func main() {
 	v, ok = queue.Peek()
 	fmt.Println("Front item after dequeue:", v, ok) // Output: 20
 	fmt.Println("Is queue empty?", queue.IsEmpty()) // Output: false
+
 }
