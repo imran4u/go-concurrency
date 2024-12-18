@@ -69,6 +69,29 @@ func (l *LinkList) Remove(value int) {
 
 }
 
+// VVI
+func (l *LinkList) Reverse() {
+	if l.head == nil {
+		fmt.Println("Empty list, nothing to reverse")
+		return
+	}
+	if l.head.next == nil {
+		fmt.Println("only one element, nothing to reverse")
+		return
+	}
+	//
+	var prev *Node
+	current := l.head
+	for current != nil {
+		temp := current.next
+		current.next = prev
+		prev = current
+		current = temp
+	}
+
+	l.head = prev
+}
+
 func (l *LinkList) Display() {
 	if l.head == nil {
 		fmt.Println("Empty link list, nothing to print")

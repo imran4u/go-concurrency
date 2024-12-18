@@ -20,4 +20,7 @@ func main() {
 	l.Remove(14)
 	l.Display()
 
+	l.Reverse()
+	l.Display()
+
 }
