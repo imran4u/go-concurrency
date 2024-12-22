@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
@@ -13,9 +14,15 @@ func main() {
 
 func isPalindrome(s string) bool {
 	// remove all special character.
-	s = strings.ReplaceAll(s, " ", "")
-	s = strings.ReplaceAll(s, ",", "")
-	s = strings.ReplaceAll(s, ":", "")
+	// s = strings.ReplaceAll(s, " ", "")
+	// s = strings.ReplaceAll(s, ",", "")
+	// s = strings.ReplaceAll(s, ":", "")
+	// s = strings.ToLower(s)
+
+	//Regx to keep only alphabet and numbers.
+	re := regexp.MustCompile(`[^a-zA-Z0-9]`)
+	// Replace all non-alphanumeric characters with an empty string
+	s = re.ReplaceAllString(s, "")
 	s = strings.ToLower(s)
 
 	fmt.Println(s)
