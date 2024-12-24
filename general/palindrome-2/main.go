@@ -10,6 +10,7 @@ func main() {
 	s := "A man, a plan, a canal: Panama"
 
 	fmt.Printf("isPalindrome %t \n", isPalindrome(s))
+	fmt.Printf("isPalindrome1 %t \n", isPalindrome1(s))
 }
 
 func isPalindrome(s string) bool {
@@ -39,5 +40,40 @@ func isPalindrome(s string) bool {
 		j--
 	}
 
+	return true
+}
+
+// Alternate optimal way
+
+func isPalindrome1(s string) bool {
+	s = strings.ToLower(s)
+	i := 0
+	j := len(s) - 1
+
+	for i < j {
+		left := s[i]
+		right := s[j]
+		if isSkip(left) {
+			i++
+			continue
+		}
+		if isSkip(right) {
+			j--
+			continue
+		}
+		if left != right {
+			return false
+		}
+		i++
+		j--
+
+	}
+	return true
+}
+
+func isSkip(b byte) bool {
+	if (b >= 'a' && b <= 'z') || (b >= 'A' && b <= 'B') || (b >= '0' && b <= '9') {
+		return false
+	}
 	return true
 }
