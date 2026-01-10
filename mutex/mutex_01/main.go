@@ -17,26 +17,29 @@ func main() {
 
 	deposit := func(amount int) {
 		mu.Lock()
+		fmt.Printf("Adding amount %d in total %d \n", amount, balance)
 		balance += amount
 		mu.Unlock()
 	}
 	widthDraw := func(amount int) {
 		defer mu.Unlock()
 		mu.Lock()
+		fmt.Printf("Subtracting amount %d in total %d \n", amount, balance)
+
 		balance -= amount
 	}
 
 	wg.Add(2)
 	go func() {
 		defer wg.Done()
-		for i := 0; i < 1000; i++ {
+		for i := 0; i < 10; i++ {
 			deposit(2)
 		}
 	}()
 
 	go func() {
 		defer wg.Done()
-		for i := 0; i < 1000; i++ {
+		for i := 0; i < 10; i++ {
 			widthDraw(2)
 		}
 	}()
