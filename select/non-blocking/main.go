@@ -13,6 +13,7 @@ func main() {
 		time.Sleep(1 * time.Second)
 		ch1 <- "One"
 	}()
+	
 	for i := 0; i < 2; i++ {
 		select {
 		case m1 := <-ch1:
