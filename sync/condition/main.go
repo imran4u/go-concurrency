@@ -19,7 +19,7 @@ func main() {
 		for len(mapRes) == 0 {
 			fmt.Println("length is zero")
 			c.Wait()
-
+			fmt.Println("Wait over signal")
 		}
 
 		fmt.Println(mapRes["first"])
@@ -29,8 +29,8 @@ func main() {
 	//main go routine
 	go func() {
 		defer wg.Done()
-		c.L.Lock()
 		time.Sleep(1 * time.Second)
+		c.L.Lock()
 		mapRes["first"] = "First value"
 		c.Signal()
 		c.L.Unlock()
