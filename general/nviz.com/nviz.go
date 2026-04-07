@@ -22,6 +22,7 @@ import (
 	"slices"
 )
 
+/*
 func main() {
 	// input := [][]int{{1, 3}, {8, 10}, {2, 6}, {15, 18}}
 	// 1,5],[2,3][3,6]
@@ -63,6 +64,43 @@ func main() {
 		in := []int{input[p1][0], input[p2-1][1]}
 		result = append(result, in)
 	}
+
+	fmt.Println(result)
+}
+*/
+// better approch 
+
+func main() {
+	input := [][]int{{1, 5}, {2, 3}, {3, 6}}
+
+	// Step 1: Sort by start time
+	slices.SortFunc(input, func(a, b []int) int {
+		return cmp.Compare(a[0], b[0])
+	})
+
+	result := [][]int{}
+
+	// Step 2: Start with first interval
+	current := input[0]
+
+	for i := 1; i < len(input); i++ {
+		next := input[i]
+
+		// Overlapping condition
+		if current[1] >= next[0] {
+			// Merge: take max end
+			if next[1] > current[1] {
+				current[1] = next[1]
+			}
+		} else {
+			// No overlap → push current and move forward
+			result = append(result, current)
+			current = next
+		}
+	}
+
+	// Step 3: Add last interval
+	result = append(result, current)
 
 	fmt.Println(result)
 }
