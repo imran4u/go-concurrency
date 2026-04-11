@@ -1,0 +1,17 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title C1 - System Context Diagram
+
+Person(user, "User", "End user")
+
+System(system, "E-commerce Platform", "Handles orders, payments, users")
+
+System_Ext(payment_gateway, "Payment Gateway", "External payment system")
+System_Ext(email_service, "Email Service", "External notification system")
+
+Rel(user, system, "Uses via Web/Mobile")
+Rel(system, payment_gateway, "Processes payments")
+Rel(system, email_service, "Sends notifications")
+
+@enduml
