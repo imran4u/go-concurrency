@@ -1,0 +1,72 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container Diagram - Scalable Backend System
+
+' Persons
+Person(user, "User", "End user")
+
+' System Boundary
+System_Boundary(system, "Application System") {
+
+    Container(api_gateway, "API Gateway", "Go / Nginx", "Entry point, routing, auth, rate limiting")
+
+    Container(auth_service, "Auth Service", "Go", "Authentication & Authorization")
+    Container(user_service, "User Service", "Go", "User management")
+    Container(order_service, "Order Service", "Go", "Order processing")
+    Container(payment_service, "Payment Service", "Go", "Handles payments")
+
+    Container(notification_service, "Notification Service", "Go", "Email/SMS/Push notifications")
+
+    Container(decision_engine, "Decision Engine", "Go", "Rules, fraud detection, business logic")
+
+    Container(grpc_internal, "gRPC Layer", "gRPC", "Internal service-to-service communication")
+
+    Container(cache, "Cache", "Redis", "Caching layer")
+
+    ContainerDb(db, "Primary DB", "PostgreSQL", "Persistent storage")
+
+    Container(queue, "Message Broker", "Kafka", "Event streaming / async processing")
+
+    Container(search, "Search Engine", "Elasticsearch", "Search & analytics")
+
+    Container(object_store, "Object Storage", "S3", "File storage")
+
+    Container(monitoring, "Monitoring", "Prometheus/Grafana", "Metrics & observability")
+
+    Container(logging, "Logging", "ELK Stack", "Centralized logging")
+
+}
+
+' Relationships
+
+Rel(user, api_gateway, "HTTP/HTTPS")
+
+Rel(api_gateway, auth_service, "Auth check")
+Rel(api_gateway, user_service, "REST")
+Rel(api_gateway, order_service, "REST")
+
+Rel(order_service, payment_service, "gRPC")
+Rel(order_service, decision_engine, "gRPC")
+
+Rel(user_service, cache, "Read/Write")
+Rel(order_service, cache, "Read/Write")
+
+Rel(user_service, db, "CRUD")
+Rel(order_service, db, "CRUD")
+Rel(payment_service, db, "Transactions")
+
+Rel(order_service, queue, "Publish events")
+Rel(notification_service, queue, "Consume events")
+
+Rel(notification_service, user_service, "Fetch user data")
+
+Rel(decision_engine, db, "Read rules/data")
+
+Rel(api_gateway, monitoring, "Metrics")
+Rel(api_gateway, logging, "Logs")
+
+Rel(order_service, search, "Index data")
+Rel(user_service, object_store, "Store files")
+
+@enduml

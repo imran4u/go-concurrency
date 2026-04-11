@@ -1,0 +1,44 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title C2 - Container Diagram
+
+Person(user, "User")
+
+System_Boundary(system, "E-commerce Platform") {
+
+    Container(web_app, "Web App", "React", "Frontend UI")
+
+    Container(api_gateway, "API Gateway", "Go/Nginx", "Routing, auth")
+
+    Container(user_service, "User Service", "Go", "User management")
+    Container(order_service, "Order Service", "Go", "Order handling")
+    Container(payment_service, "Payment Service", "Go", "Payment processing")
+
+    Container(notification_service, "Notification Service", "Go", "Sends email/SMS")
+
+    ContainerDb(db, "Database", "PostgreSQL", "Stores data")
+
+    Container(cache, "Cache", "Redis", "Caching layer")
+
+    Container(queue, "Message Broker", "Kafka", "Async events")
+
+}
+
+Rel(user, web_app, "Uses")
+Rel(web_app, api_gateway, "API calls")
+
+Rel(api_gateway, user_service, "REST")
+Rel(api_gateway, order_service, "REST")
+
+Rel(order_service, payment_service, "gRPC")
+Rel(order_service, queue, "Publish event")
+
+Rel(notification_service, queue, "Consume event")
+
+Rel(user_service, db, "CRUD")
+Rel(order_service, db, "CRUD")
+
+Rel(user_service, cache, "Read/Write")
+
+@enduml

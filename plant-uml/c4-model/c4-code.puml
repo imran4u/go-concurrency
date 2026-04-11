@@ -1,0 +1,28 @@
+@startuml
+title C4 - Code Diagram (Order Service)
+
+class OrderHandler {
+  +CreateOrder()
+}
+
+class OrderService {
+  +CreateOrder()
+  +ValidateOrder()
+}
+
+class OrderRepository {
+  +Save(order)
+  +FindByID(id)
+}
+
+class Order {
+  id
+  userId
+  amount
+}
+
+OrderHandler --> OrderService
+OrderService --> OrderRepository
+OrderRepository --> Order
+
+@enduml

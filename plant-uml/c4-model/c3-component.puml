@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title C3 - Component Diagram (Order Service)
+
+Container(order_service, "Order Service", "Go")
+
+Component(handler, "Order Handler", "HTTP/gRPC", "Handles requests")
+Component(service, "Order Service Logic", "Go", "Business logic")
+Component(repo, "Order Repository", "Go", "DB access")
+Component(event_publisher, "Event Publisher", "Kafka Producer", "Publishes events")
+
+ContainerDb(db, "Database", "PostgreSQL")
+
+Rel(handler, service, "Calls")
+Rel(service, repo, "Uses")
+Rel(repo, db, "Reads/Writes")
+
+Rel(service, event_publisher, "Publishes event")
+
+@enduml
