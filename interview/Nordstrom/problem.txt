@@ -1,0 +1,123 @@
+Nordstrom question :
+
+Product Inventory Report Problem
+Overview
+Process fictional data from a hypothetical Nordstrom API and generate inventory reports at different levels of detail.
+
+Note: You can structure your code however you'd like - classes, helper methods, global variables, etc. You do not have to keep the input as a JSON struct; convert to a product struct if preferred.
+
+Level 1: Basic Product Count
+List total inventory count by product name.
+
+Example Output
+
+Report by Product:
+Long Sleeve Scoop Neck Cotton Tee: 5
+Mera Tee: 3
+Waxed Denim Slim Leg Jeans: 3
+
+
+---
+Level 2: Inventory by Product, Color, and Size
+List current inventory by product, color, and size. Products AND colors should be ordered alphabetically.
+
+Example Output
+Report by Product Color/Size:
+Long Sleeve Scoop Neck Cotton Tee
+  Blue
+    L: 1
+  White
+    S: 1
+    M: 2
+    L: 1
+Mera Tee
+  Blue
+    S: 1
+  Grey
+    XS: 1
+    S: 1
+Waxed Denim Slim Leg Jeans
+  Blue
+    8: 2
+    10: 1
+---
+Level 3: Normalized Size Names
+Same as Level 2, but normalize all size names to: XS, S, M, L, XL
+
+Size Normalization Rules:
+
+Size 8 → M
+Size 10 → M
+"Med" → M
+---
+Input Data
+{
+  "products": [
+    {
+      "name":  "Long Sleeve Scoop Neck Cotton Tee",
+      "color": "White",
+      "size":  "S",
+      "price": 2500
+    },
+    {
+      "name":  "Long Sleeve Scoop Neck Cotton Tee",
+      "color": "White",
+      "size":  "M",
+      "price": 2500
+    },
+    {
+      "name":  "Long Sleeve Scoop Neck Cotton Tee",
+      "color": "White",
+      "size":  "L",
+      "price": 2500
+    },
+    {
+      "name":  "Long Sleeve Scoop Neck Cotton Tee",
+      "color": "White",
+      "size":  "Med",
+      "price": 2500
+    },
+    {
+      "name":  "Long Sleeve Scoop Neck Cotton Tee",
+      "color": "Blue",
+      "size":  "L",
+      "price": 2500
+    },
+    {
+      "name":  "Waxed Denim Slim Leg Jeans",
+      "color": "Blue",
+      "size":  "8",
+      "price": 19800
+    },
+    {
+      "name":  "Waxed Denim Slim Leg Jeans",
+      "color": "Blue",
+      "size":  "8",
+      "price": 19800
+    },
+    {
+      "name": "Waxed Denim Slim Leg Jeans",
+      "color": "Blue",
+      "size": "10",
+      "price": 19800
+    },
+    {
+      "name":  "Mera Tee",
+      "color": "Grey",
+      "size":  "XS",
+      "price": 22500
+    },
+    {
+      "name":  "Mera Tee",
+      "color": "Blue",
+      "size":  "S",
+      "price": 22500
+    },
+    {
+      "name":  "Mera Tee",
+      "color": "Grey",
+      "size":  "S",
+      "price": 22500
+    }
+  ]
+}
