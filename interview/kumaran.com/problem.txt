@@ -1,0 +1,8 @@
+Longest Palindromic Substring using Goroutines , structs, sync package,  and Channels
+Given a string s, find the longest substring which is a palindrome.
+ 
+Input: "aacabdkacaa"
+Output: "aca"
+ 
+Input: "babad"
+Output: "bab"
