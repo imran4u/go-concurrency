@@ -44,6 +44,9 @@ func main() {
 	//level order
 	fmt.Println("Level Order")
 	root.LevelOrder()
+
+	// invert the tree
+	invertTree(root)
 }
 
 func papulateTree(root *Node) {
@@ -125,4 +128,19 @@ func (n *Node) LevelOrder() {
 		//fmt.Println("q-len", len(queue))
 	}
 
+}
+
+func invertTree(root *Node) *Node {
+	if root == nil {
+		return nil
+	}
+
+	// Swap left and right
+	root.left, root.right = root.right, root.left
+
+	// Invert both subtrees
+	invertTree(root.left)
+	invertTree(root.right)
+
+	return root
 }
